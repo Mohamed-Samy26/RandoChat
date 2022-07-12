@@ -4,12 +4,10 @@ package com.osc.randochat.chatroom
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Bundle
-import com.osc.randochat.R
 import android.os.SystemClock
 import android.view.View
 import android.widget.ImageButton
@@ -20,22 +18,16 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.storage.FirebaseStorage
-import com.osc.randochat.adapters.MessageAdapter
-import com.osc.randochat.chatroom.Message
-import com.osc.randochat.ui.Home
+import com.osc.randochat.R
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.android.synthetic.main.activity_chat_room.*
 import org.jitsi.meet.sdk.JitsiMeetActivity
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 import timber.log.Timber
-//import timber.log.Timber
 import java.io.File
 import java.nio.charset.StandardCharsets
 import java.sql.Timestamp
@@ -113,27 +105,6 @@ class ChatRoom : AppCompatActivity() {
 
         recycler_chat.layoutManager = LinearLayoutManager(this)
 
-        //get old messages
-        messageList.clear()
-        runBlocking {
-            launch {
-                if (phone != null && !Home.hasRetrieved) {
-                    getOldMsg(collRef , phone)
-                }
-                else{
-                    notDone =true
-                }
-            }
-        }
-        if (notDone){
-            messageList = ArrayList<Message>() //Home.oldData.clone() as ArrayList<Message>
-            recycler_chat.adapter = MessageAdapter(this , messageList , phone )
-
-            for (i in 0 until (oldData.size/ if(oldData.size !=0) oldData.size else 1)){
-                messageList.add(oldData[i])
-                recycler_chat.adapter!!.notifyItemInserted(i)
-            }
-        }
 
         //listen to chat
         listenToChat(collRef)
@@ -245,14 +216,6 @@ class ChatRoom : AppCompatActivity() {
                 msgTxt.setText("")
             }
         }
-
-
-        recImg.setOnClickListener {
-            var intent = Intent(this , ProfileActivity :: class.java).apply {
-                putExtra("phone" , calleeUser!!.profile)
-            }
-            startActivity(intent)
-        }
     }
 
     private fun getDoc(num1: String, num2: String): String {
@@ -304,50 +267,6 @@ class ChatRoom : AppCompatActivity() {
                     DocumentChange.Type.REMOVED -> Timber.tag(ContentValues.TAG)
                         .d("Removed Message: %s", dc.document.data)
                 }
-            }
-        }
-    }
-
-    private fun getOldMsg(collRef: CollectionReference , phone: String) {
-        Home.hasRetrieved = true
-        messageList = ArrayList<Message>()
-        recycler_chat.adapter = MessageAdapter(this , messageList , phone )
-        println("Item Count ${recycler_chat.adapter!!.itemCount}")
-        for ( i in 0 until recycler_chat.adapter!!.itemCount){
-            recycler_chat.adapter!!.notifyItemRemoved(i)
-        }
-
-        var count = 1
-        collRef.get().addOnCompleteListener { task: Task<QuerySnapshot> ->
-            if (task.isSuccessful) {
-                for (document in task.result) {
-                    println("Count $count")
-                    count++
-                    val msg = document.toObject(
-                        Message::class.java
-                    )
-                    messageList.add(
-                        Message(
-                            String(Base64.getDecoder().decode(msg.text)),
-                            msg.time,
-                            String(Base64.getDecoder().decode(msg.user)),
-                            msg.isRecord
-                        )
-                    )
-                    oldData.add(
-                        Message(
-                            String(Base64.getDecoder().decode(msg.text)),
-                            msg.time,
-                            String(Base64.getDecoder().decode(msg.user)),
-                            msg.isRecord
-                        )
-                    )
-                    println("old msg >>>>>>>> " + msg.isRecord)
-                    recycler_chat.adapter!!.notifyItemInserted(messageList.size)
-                }
-            } else {
-                Timber.tag(ContentValues.TAG)
-                    .d(task.exception, "Error getting Messages documents: ")
             }
         }
     }
