@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "752429347556",
+    "project_id": "randochat-14410",
+    "storage_bucket": "randochat-14410.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:752429347556:android:6915ab78df367eaff0f2f1",
+        "android_client_info": {
+          "package_name": "com.osc.randochat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "752429347556-0otcej5fe12261r0mpnud9urm4ev2a6b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.osc.randochat",
+            "certificate_hash": "337429951ab1de483cff5ff15c650cb893839281"
+          }
+        },
+        {
+          "client_id": "752429347556-4o21cg58p4tqk6b75p16h30frdkg6t0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxBFa_Uoc32TevFpeHmBafQ7dQfDF9im8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "752429347556-4o21cg58p4tqk6b75p16h30frdkg6t0o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

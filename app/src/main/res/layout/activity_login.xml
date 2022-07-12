@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+    android:gravity="center"
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/background_blue15"
+        android:text="Welcome to RandoChat"
+        android:textColor="@color/black"
+        android:textSize="30dp" />
+
+    <ImageView
+        android:layout_width="142dp"
+        android:layout_height="156dp"
+        android:layout_gravity="center"
+        android:src="@drawable/typing" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+
+        android:layout_marginBottom="20dp"
+        android:text="Enter your Phone number"
+        android:textColor="#000000"
+        android:textSize="23dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text="+ 20"
+            android:textColor="@color/black"
+            android:textSize="23dp"
+
+            />
+
+        <EditText
+            android:id="@+id/phone_editTxt"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:ems="10"
+            android:hint="Phone number "
+            android:inputType="text"
+            android:maxLines="1"
+            android:background="@drawable/background_blue15"
+            android:textColor="@color/black"
+            android:textColorHint="#666666"
+            android:textSize="23sp" />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="152dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/background_blue15"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="Next"
+        android:textColor="@color/black"
+        android:textAllCaps="false" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="138dp"
+        android:layout_height="54dp"
+        android:layout_gravity="center"
+        android:background="@color/c"
+
+        >
+
+        <TextView
+            android:layout_width="92dp"
+            android:layout_height="39dp"
+            android:gravity="center"
+            android:text="Next"
+            android:textSize="17dp"
+            android:textColor="@color/black"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="6dp"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

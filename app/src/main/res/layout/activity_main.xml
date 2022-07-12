@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:text="RandoChat"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="184dp"
+        android:layout_height="173dp"
+        android:layout_gravity="center"
+        android:src="@drawable/typing"
+        android:contentDescription="" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+
+        android:layout_marginBottom="10dp"
+        android:text="Enter your Phone number to continue"
+        android:textColor="#616161"
+        android:textSize="17sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:text="+ 20"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+
+            />
+
+        <EditText
+            android:id="@+id/phone_editTxt"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:ems="10"
+            android:hint="xxxxxxxxxx"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textColorHint="#0097A7"
+            android:textSize="23sp"
+            android:autofillHints="" />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/send"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:layout_width="152dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/background_blue15"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="send"
+        android:textAllCaps="false"
+        android:textColor="#00695C" />
+
+</LinearLayout>
