@@ -1,9 +1,7 @@
-package com.osc.randochat;
+package com.osc.randochat.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.osc.randochat.R;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     String mVerificationId;
     Button send;
+    Button fakes;
 
 
     private static final String TAG = "ReadAndWriteSnippets";
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         phone=findViewById(R.id.phone_editTxt);
         send=findViewById(R.id.send);
+        fakes = findViewById(R.id.button);
 
 
 
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
   void  sendCode(String phoneNumber)
     {
@@ -93,8 +95,7 @@ public class MainActivity extends AppCompatActivity {
         {
             super.onCodeSent(s,token);
             mVerificationId =s;
-            Intent i = new Intent();
-        }
+            startActivity(new Intent(MainActivity.this, Register.class));        }
     };
    void verifycode(String code)
    {
@@ -107,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser != null)
         {
-            startActivity(new Intent(MainActivity.this,Login.class));
-            finish();
+//            startActivity(new Intent(MainActivity.this,Login.class));
+//            finish();
         }
     }
 }

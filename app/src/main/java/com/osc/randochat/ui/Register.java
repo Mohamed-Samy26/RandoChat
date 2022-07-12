@@ -1,9 +1,8 @@
-package com.osc.randochat;
+package com.osc.randochat.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.osc.randochat.R;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +31,7 @@ public class Register extends AppCompatActivity {
     ProgressBar progressbar;
     EditText otp_code;
     String otp_from_user;
-    Button send;
+//    Button send;
     private PhoneAuthProvider.ForceResendingToken forceResendingToken;
    // private PhoneAuthProvider.OnVerificationStateChangedCallbacks getmCallbacks;
 
@@ -44,20 +44,20 @@ public class Register extends AppCompatActivity {
         verify=findViewById(R.id.verifybtn);
         progressbar=findViewById(R.id.progressbar);
         otp_code=findViewById(R.id.otp_edittxt);
-        send=findViewById(R.id.sendbtn);
+//        send=findViewById(R.id.sendbtn);
 
 
 
         String phoneNo= getIntent().getStringExtra("phoneNo");  //take the number from mainactivity
 
-
-          send.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  sendCode(phoneNo);
-
-              }
-          });
+//
+//          send.setOnClickListener(new View.OnClickListener() {
+//              @Override
+//              public void onClick(View view) {
+//
+//
+//              }
+//          });
 
 
 
@@ -70,7 +70,8 @@ public class Register extends AppCompatActivity {
                 }
                 else
                 {
-                     otp_from_user = otp_code.getText().toString();
+                    sendCode(phoneNo);
+                    otp_from_user = otp_code.getText().toString();
                     System.out.println(otp_from_user);
                     System.out.println(phoneNo);
 
@@ -157,8 +158,8 @@ public class Register extends AppCompatActivity {
                 if(task.isSuccessful())
                 {
                     Toast.makeText(Register.this,"done!",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(Register.this,Login.class);
-                    startActivity(intent);
+//                    Intent intent=new Intent(Register.this,Login.class);
+//                    startActivity(intent);
                 }
 
             }
