@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.osc.randochat">
-
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,6 +21,9 @@
             android:name=".ui.Home"
             android:exported="false" />
         <activity
+            android:name=".chatroom.ChatRoom"
+            android:exported="false" />
+        <activity
             android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -27,7 +34,7 @@
         </activity>
         <activity
             android:name=".ui.Register"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

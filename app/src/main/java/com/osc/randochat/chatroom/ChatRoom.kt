@@ -29,6 +29,7 @@ import org.jitsi.meet.sdk.JitsiMeetActivity
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 import timber.log.Timber
 import java.io.File
+import java.net.URL
 import java.nio.charset.StandardCharsets
 import java.sql.Timestamp
 import java.util.*
@@ -42,7 +43,6 @@ class ChatRoom : AppCompatActivity() {
     private  var mediaRecorder : MediaRecorder? = null
     private var recording = false
     private val storageRef = FirebaseStorage.getInstance().reference
-    private val fireStoreRef = FirebaseFirestore.getInstance()
 
 
     //required data structures
@@ -58,30 +58,31 @@ class ChatRoom : AppCompatActivity() {
         checkPermission(Manifest.permission.RECORD_AUDIO, 202)
         //to hide action bar
         var recordFile = ""
-        var recordPath = this.getExternalFilesDir("/")!!.absolutePath
+        val recordPath = this.getExternalFilesDir("/")!!.absolutePath
         supportActionBar?.hide()
         window.statusBarColor = getColor(R.color.statusbar)
         setContentView(R.layout.activity_chat_room)
 
         //initializing data
         val sharedPreferences = getSharedPreferences("mypref", MODE_PRIVATE)
-        val phone = sharedPreferences.getString("phone", null)
-        val name = sharedPreferences.getString("name", null)
+        val phone = "lfnblfsn"  //sharedPreferences.getString("phone", null)
+        val name = "ffksbnklfsnbl" //sharedPreferences.getString("name", null)
         val currentUser = User(name, phone)
 
         //get UI references
         val img = findViewById<CircleImageView>(R.id.recImg)
         val recName = findViewById<TextView>(R.id.TVname)
         val vidCall = findViewById<ImageButton>(R.id.vidCall)
-        var notDone = false
+//        val currentDoc:String
 
         //Getting intent or saved instance data
+        val extras = intent.extras
         if (savedInstanceState == null) {
-            val extras = intent.extras
             if (extras == null) {
                 finish()
             } else {
                 calleeUser = User(extras.getString("name"), extras.getString("RecPhone"))
+//                currentDoc = extras.getString("room").toString()
                 recName.text = calleeUser!!.name
                 if (extras.getString("image") != null) {
                     Glide.with(this).load(extras.getString("image"))
@@ -96,7 +97,8 @@ class ChatRoom : AppCompatActivity() {
         }
 
         //database references
-        val currentDoc = getDoc(currentUser.profile, calleeUser!!.profile)
+        val currentDoc = extras?.getString("room").toString()
+        println(">>>>>>>>>>>>>>>>>>>>>> $currentDoc")
         val docRef = db.collection("chatRooms").document(currentDoc)
         val collRef = docRef.collection("Messages")
 
@@ -105,7 +107,6 @@ class ChatRoom : AppCompatActivity() {
 
         recycler_chat.layoutManager = LinearLayoutManager(this)
 
-
         //listen to chat
         listenToChat(collRef)
 
@@ -113,8 +114,12 @@ class ChatRoom : AppCompatActivity() {
         vidCall.setOnClickListener { view: View? ->
             if (currentDoc.isNotEmpty()) {
                 val options = JitsiMeetConferenceOptions.Builder()
-                    .setRoom("CarbonVideoCall$currentDoc")
-                    .build()
+                    .setRoom("RandoChatOSCcall$currentDoc")
+                    .setAudioMuted(false)
+                    .setVideoMuted(false)
+                    .setAudioOnly(false)
+                    .setConfigOverride("requireDisplayName", false)
+                    .build();
                 JitsiMeetActivity.launch(this, options)
             } else Snackbar.make(view!!, "Invalid Room ID", BaseTransientBottomBar.LENGTH_SHORT)
                 .show()
@@ -216,10 +221,6 @@ class ChatRoom : AppCompatActivity() {
                 msgTxt.setText("")
             }
         }
-    }
-
-    private fun getDoc(num1: String, num2: String): String {
-        return if (num1 > num2) num1 + num2 else num2 + num1
     }
 
     private fun updateState(msg: Message) {

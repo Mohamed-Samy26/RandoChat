@@ -140,7 +140,7 @@
             android:background="@drawable/grey_btn"
             android:elevation="@dimen/_7ssp"
             android:ems="10"
-            android:hint="@string/send_message"
+            android:hint="send message"
             android:maxLines="6"
             android:minHeight="50dp"
             android:paddingLeft="@dimen/_12sdp"

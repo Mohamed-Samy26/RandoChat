@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 sendCode(phone.getText().toString());
             }
         });
+        fakes.setOnClickListener( view -> {
+            startActivity(new Intent(MainActivity.this , Home.class));
+        });
     }
 
 
