@@ -23,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import com.osc.randochat.R
+import com.osc.randochat.adapters.MessageAdapter
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import org.jitsi.meet.sdk.JitsiMeetActivity
@@ -105,6 +106,7 @@ class ChatRoom : AppCompatActivity() {
         updateLastSeen(currentUser.profile)
         getLastSeen(calleeUser!!.profile)
 
+        recycler_chat.adapter = MessageAdapter(this , messageList , phone )
         recycler_chat.layoutManager = LinearLayoutManager(this)
 
         //listen to chat
@@ -129,7 +131,7 @@ class ChatRoom : AppCompatActivity() {
         sendBtn.setOnClickListener {
             //Remove extra spaces and break lines
             updateLastSeen(currentUser.profile)
-            if(currentMsg == "" || currentMsg == null){
+            if(currentMsg?.isEmpty() == true){
                 if (!recording){
                     recording = true
                     timer.visibility = View.VISIBLE
@@ -300,11 +302,8 @@ class ChatRoom : AppCompatActivity() {
 
 
     private fun checkPermission(permission: String, requestCode: Int) {
-        if (ContextCompat.checkSelfPermission(
-                this@ChatRoom,
-                permission
-            ) == PackageManager.PERMISSION_DENIED
-        ) {
+        if (ContextCompat.checkSelfPermission(this@ChatRoom, permission )
+            == PackageManager.PERMISSION_DENIED) {
 
             // Requesting the permission
             ActivityCompat.requestPermissions(
@@ -312,9 +311,6 @@ class ChatRoom : AppCompatActivity() {
                 arrayOf(permission),
                 requestCode
             )
-        } else {
-            Toast.makeText(this@ChatRoom, "Permission already granted", Toast.LENGTH_SHORT)
-                .show()
         }
     }
 
@@ -326,23 +322,11 @@ class ChatRoom : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == 101) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(
-                    this@ChatRoom,
-                    "Storage Permission Granted",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
+            if (!(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 Toast.makeText(this@ChatRoom, "Please Accept Permission" , Toast.LENGTH_SHORT).show()
             }
         } else if (requestCode == 202) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(
-                    this@ChatRoom,
-                    "Microphone Permission Granted",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
+            if (!(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 onBackPressed()
             }
         }
