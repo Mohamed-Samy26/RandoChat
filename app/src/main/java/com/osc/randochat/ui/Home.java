@@ -1,90 +1,169 @@
-package com.osc.randochat.ui;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.osc.randochat.R;
-import com.osc.randochat.chatroom.ChatRoom;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
-
-import timber.log.Timber;
-
-
-public class Home extends AppCompatActivity {
-
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final CollectionReference roomsColl = db.collection("Rooms");
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        Button call = findViewById(R.id.btn_call);
-        EditText name = findViewById(R.id.caller);
-        Query rooms = roomsColl.whereEqualTo("count" , 1);
-
-        call.setOnClickListener(view -> {
-            if(!name.getText().toString().isEmpty()) {
-                rooms.get().addOnCompleteListener(task -> {
-                    String s = "";
-                    boolean found = false;
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Timber.d( "Found documents ");
-                            found = true;
-                            Timber.d(document.getId() + " => " + document.getData());
-                            roomsColl.document(document.getId()).update("count" , Integer.parseInt(Objects
-                                    .requireNonNull(document.get("count")).toString())+1 );
-                            roomsColl.document(document.getId()).update("users" ,
-                                    FieldValue.arrayUnion(name.getText().toString()));
-                            s = document.getId();
-                            break;
-                        }
-                        if (!found)
-                        {
-                            Timber.d(task.getException(), "Error getting documents: ");
-                            Map<String, Object> data = new HashMap<>();
-                            data.put("count", 1);
-                            data.put("users", new ArrayList<String>().add(name.getText().toString()));
-                            roomsColl.document(("Room" + name.getText().toString())).set(data);
-                            s = ("Room" + name.getText().toString());
-                        }
-
-                    } else {
-                        Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                    }
-                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + s);
-                    openChat(name.getText().toString() ,s);
-                });
-
-            }
-            else {
-                Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    void openChat(String name ,String s){
-        Intent intent = new Intent(Home.this, ChatRoom.class);
-        intent.putExtra("name", name);
-        intent.putExtra("phone", "currphone");
-        intent.putExtra("RecPhone", "rp");
-        intent.putExtra("image", "mm");
-        intent.putExtra("room", s);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
-    }
-}
+//
+//package com.osc.randochat.ui;
+//
+//import androidx.annotation.NonNull;
+//import androidx.appcompat.app.AppCompatActivity;
+//
+//
+//import android.content.Intent;
+//import android.os.Bundle;
+//import android.text.TextUtils;
+//import android.view.View;
+//import android.widget.Button;
+//import android.widget.EditText;
+//import android.widget.Toast;
+//
+//import com.google.firebase.FirebaseException;
+//import com.google.firebase.auth.FirebaseAuth;
+//import com.google.firebase.auth.FirebaseUser;
+//import com.google.firebase.auth.PhoneAuthCredential;
+//import com.google.firebase.auth.PhoneAuthOptions;
+//import com.google.firebase.auth.PhoneAuthProvider;
+//
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
+//import com.osc.randochat.R;
+//
+//import java.util.concurrent.TimeUnit;
+//
+//public class Home extends AppCompatActivity {
+//
+//    DatabaseReference ref;
+//    // ConstraintLayout cons;
+//    EditText phone;
+//    FirebaseAuth mAuth;
+//    String mVerificationId;
+//    Button next;
+//
+//
+//
+//    private static final String TAG = "ReadAndWriteSnippets";
+//
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.home2);
+//
+//        //   cons.findViewById(R.id.next_button);
+//        phone=findViewById(R.id.phone_editTxt);
+//        next=findViewById(R.id.next_btn);
+//
+//
+//
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+//        next.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(TextUtils.isEmpty(phone.getText().toString()))
+//                {
+//                    Toast.makeText(Home.this, "Enter valid number", Toast.LENGTH_SHORT).show();
+//                }
+//                else {
+//                    String  phoneNo=phone.getText().toString();
+//                    System.out.println("phone  "+phone.getText().toString());
+//                    System.out.println("phone  "+"+20"+phoneNo);
+//                    // sendCode(phone.getText().toString());
+//
+//                    Intent intent=new Intent(Home.this,Login.class);
+//                    intent.putExtra("phoneNo",phoneNo);
+//                    startActivity(intent);
+//
+//                }
+//            }
+//        });
+//
+//
+//
+//      /*  button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//             /*   if(!TextUtils.isEmpty(name.getText().toString()) && !TextUtils.isEmpty(age.getText().toString())) {
+//                    addNewPost(po);
+//                }
+//                else
+//                {
+//                    Toast.makeText(MainActivity.this, "please enter data", Toast.LENGTH_SHORT).show();
+//                }*/
+//        //   getdata();
+//               /* ref.child("users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.e("firebase", "Error getting data", task.getException());
+//                        }
+//                        else {
+//                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+//                        }
+//                    }
+//                });
+//            }
+//        });
+//*/
+//
+//
+//
+//
+//
+//
+//    }
+//    void  sendCode(String phoneNumber)
+//    {
+//        PhoneAuthOptions options =
+//                PhoneAuthOptions.newBuilder(mAuth)
+//                        .setPhoneNumber("+20"+phoneNumber)       // Phone number to verify
+//                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+//                        .setActivity(this)                 // Activity (for callback binding)
+//                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+//                        .build();
+//        PhoneAuthProvider.verifyPhoneNumber(options);
+//    }
+//
+//
+//    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+//            mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+//
+//        @Override
+//        //sending the code to the mobile number
+//        public void onVerificationCompleted(PhoneAuthCredential credential) {
+//            final String code= credential.getSmsCode(); //the code
+//            if(code!=null)
+//            {
+//                // make sure of the code
+//                verifycode(code); //make sure that the code is correct
+//
+//            }
+//        }
+//
+//        @Override
+//        public void onVerificationFailed(FirebaseException e) {
+//            Toast.makeText(Home.this, "Verification Failed", Toast.LENGTH_SHORT).show();
+//            //
+//
+//        }
+//
+//        @Override
+//        public void onCodeSent(@NonNull String s,
+//                               @NonNull PhoneAuthProvider.ForceResendingToken token)
+//        {
+//            super.onCodeSent(s,token);
+//            mVerificationId =s;
+//        }
+//    };
+//    void verifycode(String code)
+//    {
+//
+//    }
+//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//        if(currentUser != null)
+//        {
+//            startActivity(new Intent(Home.this,Login.class));
+//            finish();
+//        }
+//    }
+//}

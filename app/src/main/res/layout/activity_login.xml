@@ -1,0 +1,130 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical"
+    tools:context=".ui.Login">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="25dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:text="Verification code "
+        android:textColor="#000000" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textSize="18dp"
+        android:layout_marginBottom="0dp"
+        android:layout_gravity="center"
+        android:text="Please Enter the verification code "
+
+        android:textColor="#777777" />
+
+<!--    <EditText-->
+
+<!--        android:id="@+id/otp_edittxt"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint=" the code"-->
+<!--        android:inputType="number"-->
+<!--        android:maxLines="1"-->
+<!--        android:paddingStart="20dp"-->
+<!--        android:paddingEnd="20dp"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textColorHint="#666666"-->
+<!--        android:textSize="20sp">-->
+
+<!--    </EditText>-->
+
+
+    <com.chaos.view.PinView
+        android:id="@+id/firstPinView"
+        style="@style/PinWidget.PinView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:cursorVisible="true"
+        android:hint="------"
+        android:layout_marginVertical="@dimen/_14sdp"
+        android:inputType="number"
+        android:textColorHint="#777777"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+
+        app:cursorColor="@color/black"
+        app:cursorWidth="2dp"
+        app:hideLineWhenFilled="true"
+        app:itemCount="5"
+        app:itemHeight="48dp"
+        app:itemRadius="4dp"
+        app:itemSpacing="0dp"
+        app:itemWidth="48dp"
+        android:layout_gravity="center"
+        app:lineWidth="1dp"
+        app:viewType="none" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter 6-didgit code"
+        android:layout_gravity="center"
+        android:textSize="17dp"
+        />
+
+    <Button
+        android:id="@+id/sendbtn"
+        android:layout_width="152dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/background_blue15"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="Send"
+        android:textColor="@color/black"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/verifybtn"
+        android:layout_width="152dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/background_blue15"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="Verify"
+        android:textColor="@color/black"
+        android:textAllCaps="false" />
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:outlineAmbientShadowColor="@color/black"
+        android:visibility="invisible"
+        />
+
+
+</LinearLayout>

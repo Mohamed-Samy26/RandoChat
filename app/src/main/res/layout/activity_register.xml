@@ -1,92 +1,109 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffffff"
+    android:background="@drawable/bg_gradient"
     android:orientation="vertical"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.Register">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <Button
+        android:id="@+id/signUp_btn2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:textSize="25dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
-        android:text="Verification code"
-        android:textColor="#000000" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="18sp"
-        android:layout_marginBottom="0dp"
-        android:layout_gravity="center"
-        android:text="Please Enter the verification code"
-
-        android:textColor="#777777" />
-
+        android:layout_marginBottom="106dp"
+        android:text="SIGN UP"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="@dimen/_44sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp">
+        android:layout_marginTop="@dimen/_44sdp"
+        android:gravity="center"
+        android:hint="Enter your name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:startIconContentDescription="Username"
+        app:startIconDrawable="@drawable/user_img_foreground">
 
         <com.google.android.material.textfield.TextInputEditText
-
-            android:id="@+id/otp_edittxt"
-            android:layout_width="236dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:id="@+id/userName_et2"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginEnd="38dp"
+            android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:hint="Code"
-            android:textAlignment="center"
-            android:inputType="number"
-            android:maxLines="1"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:textColor="@color/black"
-            android:textColorHint="#666666"
-            android:textSize="20dp"
-            />
+            android:gravity="clip_vertical|start"
+            android:inputType="textPersonName"
+            android:paddingVertical="@dimen/_15sdp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_image"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_marginTop="@dimen/_100sdp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter 6-didgit code"
-        android:layout_gravity="center"
-        android:textSize="17dp"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="@dimen/_24sdp"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="@dimen/_24sdp"
+        android:padding="@dimen/_30sdp"
+        android:background="@color/md_theme_light_secondaryContainer"
+        android:backgroundTint="@color/md_theme_light_secondaryContainer">
 
-    <Button
-        android:id="@+id/verifybtn"
-        android:layout_width="152dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/background_blue15"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:text="Verify"
-        android:textColor="@color/black"
-        android:textAllCaps="false" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
-    <ProgressBar
-        android:id="@+id/progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:outlineAmbientShadowColor="@color/black"
-        android:visibility="invisible"
-        />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginVertical="@dimen/_44sdp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/profile"
+                app:civ_border_color="@color/md_theme_light_secondaryContainer"
+                app:civ_border_width="@dimen/_4sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.228" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_24sdp"
+                android:fontFamily="sans-serif"
+                android:text="Choose your profile picture"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

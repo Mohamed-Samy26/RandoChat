@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    tools:context=".ui.AboutUsP2Activity">
+
+    <Button
+        android:id="@+id/btn_one2"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/baseline_double_arrow_24"
+        android:drawingCacheQuality="auto"
+        android:duplicateParentState="false"
+        app:cornerRadius="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.912"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.94"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/science_and_tech"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Card.Media" />
+
+
+
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/frameLayout3"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_11sdp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center_horizontal"
+        android:text="Science and Tech Committee"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_22ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_11sdp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="7dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center_horizontal"
+        android:text="@string/committe_desc"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,8 +18,28 @@
         android:theme="@style/Theme.RandoChat"
         tools:targetApi="31">
         <activity
-            android:name=".ui.Home"
+            android:name=".ui.AboutUsP3Activity"
             android:exported="false" />
+        <activity
+            android:name=".ui.AboutUsP2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Login"
+            android:exported="true" />
+        <activity
+            android:name=".ui.Register"
+            android:exported="true" />
+<!--        <activity-->
+<!--            android:name=".ui.MainActivity"-->
+<!--            android:exported="true" />-->
+        <activity
+            android:name=".ui.SplashScreen"
+            android:exported="true"
+            android:theme="@style/SplashScreen"/>
+
         <activity
             android:name=".chatroom.ChatRoom"
             android:exported="false" />
@@ -32,8 +52,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".ui.Register"
+            android:name=".ui.Verify"
             android:exported="true" />
     </application>
 

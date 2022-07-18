@@ -22,6 +22,7 @@
         <!--        <item name="buttonTint">@color/main_pink</item>-->
 
     </style>
+
     <style name="chat_room" parent="Theme.Material3.DynamicColors.DayNight">
         <item name="statusBarBackground">#47617a</item>
         <item name="colorPrimaryDark">#47617a</item>
@@ -30,5 +31,12 @@
     <style name="roundedImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">27dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.Card.Media" parent="">
+        <item name="cornerSizeBottomLeft">@dimen/_24sdp</item>
+        <item name="cornerSizeBottomRight">@dimen/_24sdp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
     </style>
 </resources>
