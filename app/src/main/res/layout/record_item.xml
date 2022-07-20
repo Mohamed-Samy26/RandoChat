@@ -18,11 +18,11 @@
 
         <Button
             android:id="@+id/play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="61dp"
+            android:layout_height="43dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:drawableStart="@drawable/ic_play_btn"
+            android:drawableLeft="@drawable/ic_play_btn"
             android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
