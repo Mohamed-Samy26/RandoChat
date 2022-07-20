@@ -6,7 +6,7 @@
     android:id="@+id/bg_3"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
-    tools:context=".ui.AboutUsP2Activity">
+    tools:context=".ui.about.AboutUsP2Activity">
 
     <Button
         android:id="@+id/btn_one2"

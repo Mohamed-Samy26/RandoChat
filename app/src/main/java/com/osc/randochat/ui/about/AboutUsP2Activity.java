@@ -1,28 +1,27 @@
-package com.osc.randochat.ui;
+package com.osc.randochat.ui.about;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import com.osc.randochat.R;
 import com.osc.randochat.helper.AnimateView;
 
-public class AboutUsActivity extends AppCompatActivity {
+public class AboutUsP2Activity extends AppCompatActivity {
 
-    Button next_btn;
+    Button next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.about_us1);
+        setContentView(R.layout.about_us2);
 
-        next_btn = findViewById(R.id.btn_one);
-        AnimateView.startAnimation(R.id.bg_2 , this , 4000);
-        next_btn.setOnClickListener(view -> {
-            Intent intent = new Intent(AboutUsActivity.this, AboutUsP2Activity.class);
+        next = findViewById(R.id.btn_one2);
+        AnimateView.startAnimation(R.id.bg_3 , this , 2000);
+        next.setOnClickListener(view -> {
+            Intent intent = new Intent(AboutUsP2Activity.this, AboutUsP3Activity.class);
             startActivity(intent);
             overridePendingTransition(org.jitsi.meet.sdk.R.anim.rns_slide_in_from_right, org.jitsi.meet.sdk.R.anim.rns_slide_out_to_left);
         });

@@ -3,15 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffffff"
+    android:id="@+id/bg_verify"
+    android:background="@drawable/bg_gradient"
+    android:theme="@style/Theme.RandoChat.NoActionBar"
     android:orientation="vertical"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.login.Verify">
 
     <TextView
         android:layout_width="wrap_content"
+        android:layout_marginVertical="@dimen/_64sdp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:textSize="25dp"
+        android:textSize="@dimen/_25ssp"
         android:layout_marginBottom="10dp"
         android:layout_gravity="center"
         android:text="Verification code"
@@ -28,31 +31,30 @@
         android:textColor="#777777" />
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField"
-        android:layout_width="match_parent"
+
+
+    <com.chaos.view.PinView
+
+        android:id="@+id/otp_edittxt"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp">
+        android:layout_gravity="center"
+        app:itemRadius="@dimen/_10sdp"
+        app:itemCount="6"
+        app:lineColor="@color/md_theme_dark_secondaryContainer"
+        app:viewType="rectangle"
+        style="@style/PinWidget.PinView"
+        android:cursorVisible="true"
+        android:textAlignment="center"
+        android:inputType="number"
+        android:maxLines="1"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/black"
+        android:layout_marginVertical="@dimen/_24sdp"
+        android:textSize="@dimen/_20ssp"/>
 
-        <com.google.android.material.textfield.TextInputEditText
 
-            android:id="@+id/otp_edittxt"
-            android:layout_width="236dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:hint="Code"
-            android:textAlignment="center"
-            android:inputType="number"
-            android:maxLines="1"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:textColor="@color/black"
-            android:textColorHint="#666666"
-            android:textSize="20dp"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
 
     <TextView
@@ -72,7 +74,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/background_blue15"
+        android:backgroundTint="@color/md_theme_light_secondaryContainer"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:text="Verify"

@@ -1,4 +1,4 @@
-package com.osc.randochat.ui;
+package com.osc.randochat.ui.login;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.osc.randochat.R;
+import com.osc.randochat.helper.AnimateView;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Register extends AppCompatActivity {
@@ -35,16 +37,13 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        AnimateView.startAnimation(R.id.bg_reg , this , 2000);
+
 
         profile = findViewById(R.id.profile_image);
         sign_up_btn = findViewById(R.id.signUp_btn2);
         user_name = findViewById(R.id.userName_et2);
 
-        signIn_tv.setOnClickListener(view -> {
-            Intent intent = new Intent(this, Login.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        });
 
         profile.setOnClickListener(view -> {
             pickImg();

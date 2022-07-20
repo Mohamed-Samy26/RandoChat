@@ -66,7 +66,7 @@
     </style>
 
 
-    <style name="Theme.RandoChat.NoActionBar">
+    <style name="Theme.RandoChat.NoActionBar" parent="Theme.RandoChat">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -86,13 +86,6 @@
 
     <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowBackground">@drawable/back_splash_screen</item>
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
-
-    </style>
-
-
     <style name="WindowAnimations">
         <item name="android:activityOpenEnterAnimation">
             @anim/rns_slide_in_from_right</item>
@@ -102,6 +95,11 @@
             @anim/rns_slide_in_from_right</item>
         <item name="android:activityCloseExitAnimation">
             @anim/rns_slide_out_to_left</item>
+    </style>
+
+    <style name="Splash" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:statusBarColor">@color/md_theme_light_primary</item>
     </style>
 
 </resources>

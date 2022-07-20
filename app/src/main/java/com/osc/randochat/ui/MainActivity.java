@@ -2,23 +2,15 @@
 
 package com.osc.randochat.ui;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
-import android.animation.TimeAnimator;
-import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.osc.randochat.R;
 import com.osc.randochat.helper.AnimateView;
+import com.osc.randochat.ui.about.AboutUsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,8 +20,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        setTheme(R.style.Theme_RandoChat_NoActionBar);
         about = findViewById(R.id.about);
-        AnimateView.startAnimation(R.id.bg_home , this , 4000);
+        AnimateView.startAnimation(R.id.bg_home , this , 2000);
         about.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
             startActivity(intent);

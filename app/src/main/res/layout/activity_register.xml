@@ -6,8 +6,17 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
     android:orientation="vertical"
-    tools:context=".ui.Register">
+    android:id="@+id/bg_reg"
+    tools:context=".ui.login.Register">
 
+    <ImageView
+        android:layout_width="86dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/logo_pic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/signUp_btn2"
@@ -79,8 +88,7 @@
                 android:id="@+id/profile_image"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_120sdp"
-                android:layout_marginVertical="@dimen/_44sdp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginVertical="@dimen/_20sdp"
                 android:src="@drawable/profile"
                 app:civ_border_color="@color/md_theme_light_secondaryContainer"
                 app:civ_border_width="@dimen/_4sdp"

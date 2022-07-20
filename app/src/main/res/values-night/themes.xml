@@ -87,8 +87,8 @@
     <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowBackground">@drawable/back_splash_screen</item>
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+        <item name="android:windowBackground">@drawable/logo_pic</item>
+        <item name="android:statusBarColor" >?attr/colorPrimary</item>
 
     </style>
 
