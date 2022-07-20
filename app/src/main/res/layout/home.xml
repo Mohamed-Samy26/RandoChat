@@ -2,28 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bg_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
     tools:context=".ui.MainActivity">
 
-    <Button
-        android:id="@+id/signUp_home_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
-        android:layout_marginBottom="732dp"
-        android:text="SIGN UP"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
     <ImageView
         android:id="@+id/randoChat_iv"
-        android:layout_width="239dp"
-        android:layout_height="192dp"
+        android:layout_width="212dp"
+        android:layout_height="163dp"
         android:layout_marginStart="49dp"
         android:layout_marginTop="148dp"
         android:layout_marginEnd="49dp"
@@ -31,7 +20,7 @@
         app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/randochat_logo" />
+        app:srcCompat="@drawable/logo_pic" />
 
     <LinearLayout
         android:id="@+id/about"
@@ -50,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="16dp"
-            app:srcCompat="@android:drawable/ic_dialog_info" />
+            app:srcCompat="@android:drawable/ic_dialog_info"
+            app:tint="@color/black"/>
 
         <TextView
             android:id="@+id/signIn_tv2"
@@ -59,7 +49,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:text="About us"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
 

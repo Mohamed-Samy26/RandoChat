@@ -5,11 +5,10 @@
 
     <gradient
         android:type="linear"
-        android:startColor="#FFE53B"
-        android:centerColor="#FFBE3B"
-        android:endColor="#FF6F00"
-        android:angle="90"
-        />
+        android:startColor="@color/loginBackground"
+        android:endColor="@color/md_theme_dark_secondary"
+        android:centerColor="@color/md_theme_dark_primary"
+        android:angle="135"/>
 
 </shape>
 

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.osc.randochat.R;
+import com.osc.randochat.helper.AnimateView;
 
 public class AboutUsP3Activity extends AppCompatActivity {
 
@@ -20,15 +21,13 @@ public class AboutUsP3Activity extends AppCompatActivity {
         setContentView(R.layout.about_us3);
 
         home_btn = findViewById(R.id.home_btn);
-        home_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AboutUsP3Activity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                overridePendingTransition(org.jitsi.meet.sdk.R.anim.rns_slide_in_from_right, org.jitsi.meet.sdk.R.anim.rns_slide_out_to_left);
+        AnimateView.startAnimation(R.id.bg_4 , this , 4000);
+        home_btn.setOnClickListener(view -> {
+            Intent intent = new Intent(AboutUsP3Activity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            overridePendingTransition(org.jitsi.meet.sdk.R.anim.rns_slide_in_from_right, org.jitsi.meet.sdk.R.anim.rns_slide_out_to_left);
 
-            }
         });
 
     }

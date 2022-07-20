@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.osc.randochat.R;
+import com.osc.randochat.helper.AnimateView;
 
 public class AboutUsP2Activity extends AppCompatActivity {
 
@@ -19,13 +20,11 @@ public class AboutUsP2Activity extends AppCompatActivity {
         setContentView(R.layout.about_us2);
 
         next = findViewById(R.id.btn_one2);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AboutUsP2Activity.this, AboutUsP3Activity.class);
-                startActivity(intent);
-                overridePendingTransition(org.jitsi.meet.sdk.R.anim.rns_slide_in_from_right, org.jitsi.meet.sdk.R.anim.rns_slide_out_to_left);
-            }
+        AnimateView.startAnimation(R.id.bg_3 , this , 4000);
+        next.setOnClickListener(view -> {
+            Intent intent = new Intent(AboutUsP2Activity.this, AboutUsP3Activity.class);
+            startActivity(intent);
+            overridePendingTransition(org.jitsi.meet.sdk.R.anim.rns_slide_in_from_right, org.jitsi.meet.sdk.R.anim.rns_slide_out_to_left);
         });
 
     }
