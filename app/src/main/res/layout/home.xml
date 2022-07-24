@@ -14,10 +14,9 @@
         android:layout_width="212dp"
         android:layout_height="163dp"
         android:layout_marginStart="49dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="158dp"
         android:layout_marginEnd="49dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_pic" />
@@ -34,11 +33,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:layout_gravity="center"
             android:id="@+id/aboutus_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_16sdp"
             app:srcCompat="@android:drawable/ic_dialog_info"
             app:tint="@color/black"/>
 
@@ -46,11 +45,11 @@
             android:id="@+id/signIn_tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="sans-serif"
             android:text="About us"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/_12ssp" />
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView

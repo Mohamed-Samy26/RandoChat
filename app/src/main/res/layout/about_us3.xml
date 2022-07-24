@@ -38,7 +38,7 @@
         android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="Mohamed Adel\nHead Of Committee"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
@@ -63,7 +63,7 @@
         android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="Abdelrhman Mohamed\nmember"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
@@ -74,8 +74,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="48dp"
         android:gravity="center"
-        android:text="Mariem\nmember"
-        android:textColor="#FFFFFF"
+        android:text="Mariem Morris \nmember"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/imageView10"
         app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
@@ -98,10 +98,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="5dp"
         android:gravity="center"
-        android:text="Mohamed Samy\nTeam Leader"
-        android:textColor="#FFFFFF"
+        android:text="Mohamed Samy\n Vice Head and Team Leader"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />

@@ -28,12 +28,12 @@
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/drawable/button.xml" value="0.1355" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/drawable/ic_coo.xml" value="0.1" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1345" />
-        <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/drawable/round_bar.xml" value="0.224" />
+        <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/drawable/round_bar.xml" value="0.2" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/drawable/rounded_edittext.xml" value="0.224" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/drawable/splash.xml" value="0.163" />
-        <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/about_us1.xml" value="0.2" />
+        <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/about_us1.xml" value="0.176" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/about_us2.xml" value="0.2" />
-        <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/about_us3.xml" value="0.21052631578947367" />
+        <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/about_us3.xml" value="0.4" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/activity_chat_room.xml" value="0.264" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/activity_home.xml" value="0.18840579710144928" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/activity_login.xml" value="0.2" />
@@ -41,7 +41,7 @@
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/activity_verify.xml" value="0.176" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/fragment_login.xml" value="0.21052631578947367" />
-        <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/home.xml" value="0.152" />
+        <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/home.xml" value="0.264" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/home2.xml" value="0.14078947368421052" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/other_msg.xml" value="0.21052631578947367" />
         <entry key="..\:/flutter_projects/RandoChat/app/src/main/res/layout/othr_record_item.xml" value="0.21052631578947367" />
