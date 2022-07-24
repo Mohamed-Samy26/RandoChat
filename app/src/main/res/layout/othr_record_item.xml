@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_19sdp"
@@ -13,17 +14,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
-        android:background="#DCF6FA">
-    <Button
-        android:id="@+id/play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Play"/>
+        android:background="@color/md_theme_light_primaryContainer">
+
+        <Button
+            android:id="@+id/play"
+            android:layout_width="61dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:drawableLeft="@drawable/ic_play_btn"
+            android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <SeekBar
         android:id="@+id/seekBar"
