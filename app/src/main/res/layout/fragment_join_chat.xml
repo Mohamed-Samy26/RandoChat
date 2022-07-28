@@ -2,38 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.Login">
-
-
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.JoinChat">
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_44sdp"
         android:gravity="center"
-        android:hint="Phone Number"
-        android:minWidth="@dimen/_154sdp"
+        android:hint="Max chat size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:startIconContentDescription="Username"
-        app:startIconDrawable="@android:drawable/stat_sys_phone_call">
+        app:startIconDrawable="@drawable/ic_baseline_person_add_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/enter_phone"
-            android:layout_width="match_parent"
-            android:inputType="number"
+            android:id="@+id/call_size"
+            android:layout_width="wrap_content"
+            android:minWidth="@dimen/_90sdp"
             android:layout_height="65dp"
-            android:minWidth="@dimen/_154sdp"
+            android:maxEms="2"
             android:layout_marginStart="38dp"
+            android:layout_gravity="center"
+            android:text="2"
             android:layout_marginTop="140dp"
             android:layout_marginEnd="38dp"
             android:background="@drawable/rounded_edittext"
             android:gravity="clip_vertical|start"
+            android:inputType="number"
             android:paddingVertical="@dimen/_15sdp"
-            android:paddingLeft="10dp"
             android:paddingTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -43,15 +42,18 @@
 
     </com.google.android.material.textfield.TextInputLayout>
     <Button
-        android:id="@+id/enter_btn"
-        android:layout_width="match_parent"
+        android:id="@+id/call_btn"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_24sdp"
-        android:text="Enter"
+        android:text="Enter Chat Room"
+        android:drawableLeft="@android:drawable/sym_action_chat"
+        android:drawableTint="@color/white"
         android:textSize="16sp"
         android:layout_marginHorizontal="@dimen/_44sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 </LinearLayout>
+

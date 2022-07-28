@@ -57,10 +57,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_44sdp"
-        android:layout_marginBottom="4dp"
+        android:minWidth="@dimen/_154sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/randoChat_iv" />
+        app:layout_constraintTop_toBottomOf="@+id/randoChat_iv"
+        app:layout_constraintVertical_bias="0.247" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
