@@ -6,13 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.osc.randochat.R;
@@ -31,22 +27,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.home);
         setTheme(R.style.Theme_RandoChat_NoActionBar);
         about = findViewById(R.id.about);
-        FragmentContainerView fragmentContainerView = findViewById(R.id.fragment_container_view);
         AnimateView.startAnimation(R.id.bg_home , this , 2000);
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        String phone = sharedPref.getString("phone" ,"");
-        if (phone.isEmpty()){
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        String phone = getIntent().getStringExtra("reg");
+        if (phone == null)
+            phone = sharedPref.getString("phone" ,null);
+        else
+            sharedPref.edit().putString("phone" , phone).apply();
+
+        System.out.println(">>>>>>>>>>>>>>>>> "+ phone);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (phone == null){
             transaction.replace(R.id.fragment_container_view, new Login());
-            transaction.addToBackStack(null);
-            transaction.commit();
         }
         else{
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container_view, new JoinChat());
-            transaction.addToBackStack(null);
-            transaction.commit();
         }
+        transaction.addToBackStack(null);
+        transaction.commit();
         about.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
             startActivity(intent);

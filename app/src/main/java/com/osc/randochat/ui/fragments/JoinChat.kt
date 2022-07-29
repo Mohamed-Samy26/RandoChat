@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import com.osc.randochat.R
-import com.osc.randochat.databinding.FragmentJoinChatBinding
 
 
 class JoinChat : Fragment() {
@@ -21,11 +23,12 @@ class JoinChat : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = FragmentJoinChatBinding.inflate(inflater)
-        binding.callBtn.setOnClickListener {
-
+        val view = inflater.inflate(R.layout.fragment_join_chat, container, false)
+        val btn = view.findViewById<Button>(R.id.call_btn)
+        val tv = view.findViewById<TextView>(R.id.call_size)
+        btn.setOnClickListener {
+            Toast.makeText(activity, tv.text.toString(), Toast.LENGTH_SHORT).show()
         }
-
-        return inflater.inflate(R.layout.fragment_join_chat, container, false)
-    }
+        return view
+      }
 }

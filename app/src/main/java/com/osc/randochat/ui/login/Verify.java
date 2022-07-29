@@ -43,8 +43,6 @@ public class Verify extends AppCompatActivity {
     EditText otp_code;
     String otp_from_user;
     String phoneNo;
-    private PhoneAuthProvider.ForceResendingToken forceResendingToken;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks getmCallbacks;
 
 
     @Override
@@ -57,13 +55,14 @@ public class Verify extends AppCompatActivity {
         otp_code=findViewById(R.id.otp_edittxt);
         db = FirebaseFirestore.getInstance();
 
-        final String phoneNo = "+20" +getIntent().getStringExtra("phone");
-        if (phoneNo.length()<=3){
+        final String phone = "+20" +getIntent().getStringExtra("phone");
+        phoneNo=phone;
+        if (phone.length()<=3){
             Toast.makeText(this ,
-                "Please enter a valid number "+ phoneNo ,Toast.LENGTH_LONG).show();
+                "Please enter a valid number "+ phone ,Toast.LENGTH_LONG).show();
             finish();
         }
-        sendCode(phoneNo);
+        sendCode(phone);
 
 
         verify.setOnClickListener(view -> {
@@ -75,7 +74,7 @@ public class Verify extends AppCompatActivity {
             {
                 otp_from_user = otp_code.getText().toString();
                 System.out.println(otp_from_user);
-                System.out.println(phoneNo);
+                System.out.println(phone);
                 verifyCode(otp_from_user);
             }
         });
@@ -129,18 +128,8 @@ public class Verify extends AppCompatActivity {
                 Toast.makeText(Verify.this,"done!",Toast.LENGTH_SHORT).show();
                 SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
                 sharedPref.edit().putString("phone" ,phoneNo).apply();
-                if(checkRegistered(phoneNo)){
-                    Intent i = new Intent(this , MainActivity.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(i);
-                }
-                else {
-                    Intent i = new Intent(this , Register.class);
-                    i.putExtra("phone" , phoneNo);
-                    startActivity(i);
-                }
+                checkRegistered(phoneNo);
             }
-
         });
     }
     void  sendCode(String phoneNumber)
@@ -155,23 +144,29 @@ public class Verify extends AppCompatActivity {
                         .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
-    boolean checkRegistered(String phoneNo){
+    void checkRegistered(String phoneNo){
         System.out.println("checking >>>>>>>>>>>>>>>> "+phoneNo);
         final Task<DocumentSnapshot> res = db.collection("users").document(""+phoneNo)
                 .get().addOnCompleteListener(
                 task -> {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            Timber.tag(TAG).d("Document exists!");
-                        } else {
-                            Timber.tag(TAG).d("Document does not exist!");
+                        if(document.exists()){
+                            Log.d(TAG , "Found");
+                            Intent i = new Intent(this , MainActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(i);
+                        }
+                        else {
+                            Log.d(TAG , "Not Found");
+                            Intent i = new Intent(this , Register.class);
+                            i.putExtra("phone" , phoneNo);
+                            startActivity(i);
                         }
                     } else {
                         Timber.tag(TAG).d(task.getException(), "Failed with: ");
                     }
                 }
         );
-        return res.getResult().exists();
     }
 }
