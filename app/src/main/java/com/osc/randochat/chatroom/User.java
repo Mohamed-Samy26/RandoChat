@@ -1,6 +1,6 @@
 package com.osc.randochat.chatroom;
 
-class User {
+public class User {
     private String name;
     private String profile;
 

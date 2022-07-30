@@ -30,7 +30,6 @@ import org.jitsi.meet.sdk.JitsiMeetActivity
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 import timber.log.Timber
 import java.io.File
-import java.net.URL
 import java.nio.charset.StandardCharsets
 import java.sql.Timestamp
 import java.util.*

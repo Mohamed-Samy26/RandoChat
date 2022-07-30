@@ -13,7 +13,7 @@ import com.osc.randochat.ui.login.Register
 import com.osc.randochat.ui.login.Verify
 
 
-class Login : Fragment(com.osc.randochat.R.layout.fragment_login) {
+class Login : Fragment(R.layout.fragment_login) {
 
 
     override fun onCreateView(
@@ -26,7 +26,6 @@ class Login : Fragment(com.osc.randochat.R.layout.fragment_login) {
             container, false
         )
         val btn = view.findViewById<Button>(R.id.enter_btn)
-        val zr = view.findViewById<Button>(R.id.zr)
         val txt = view.findViewById<TextInputEditText>(R.id.enter_phone)
 
         btn.setOnClickListener {
@@ -36,11 +35,6 @@ class Login : Fragment(com.osc.randochat.R.layout.fragment_login) {
                 intent.putExtra("phone" , txt.text.toString())
                 startActivity(intent)
             }
-        }
-        zr.setOnClickListener {
-            val intent = Intent(activity , Register::class.java)
-            intent.putExtra("phone" , "+20" + txt.text.toString())
-            startActivity(intent)
         }
         return view
     }

@@ -8,6 +8,15 @@
     android:background="@drawable/bg_gradient"
     tools:context=".ui.MainActivity">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/_44sdp"
+        android:layout_height="@dimen/_44sdp"
+        android:layout_marginTop="@dimen/_22sdp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/user_img"
+        android:src="@drawable/user_img_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/randoChat_iv"
