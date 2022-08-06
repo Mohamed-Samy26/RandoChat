@@ -27,6 +27,7 @@ import com.osc.randochat.adapters.MessageAdapter
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import org.jitsi.meet.sdk.JitsiMeetActivity
+import org.jitsi.meet.sdk.JitsiMeetActivityDelegate.onBackPressed
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 import timber.log.Timber
 import java.io.File
@@ -38,17 +39,21 @@ import kotlin.math.abs
 class ChatRoom : AppCompatActivity() {
 
     //local state and current user handle
-    private var calleeUser: User? = null
+//    private var calleeUser: User? = null
     private var currentMsg: String? = null
-    private  var mediaRecorder : MediaRecorder? = null
+    private var mediaRecorder : MediaRecorder? = null
     private var recording = false
     private val storageRef = FirebaseStorage.getInstance().reference
+
+    //Records
+    private var recordFile = ""
+    private val recordPath = this.getExternalFilesDir("/")!!.absolutePath
+    private val isRecord: MutableMap<String, Boolean> = HashMap()
 
 
     //required data structures
     private var messageList = ArrayList<Message>()
     private val lastMessage: MutableMap<String, String> = HashMap()
-    private val isRecord: MutableMap<String, Boolean> = HashMap()
     private val db = FirebaseFirestore.getInstance()
     private val userRef = db.collection("users")
 
@@ -57,45 +62,30 @@ class ChatRoom : AppCompatActivity() {
 
         checkPermission(Manifest.permission.RECORD_AUDIO, 202)
         //to hide action bar
-        var recordFile = ""
-        val recordPath = this.getExternalFilesDir("/")!!.absolutePath
         supportActionBar?.hide()
         window.statusBarColor = getColor(R.color.statusbar)
         setContentView(R.layout.activity_chat_room)
 
         //initializing data
-        val sharedPreferences = getSharedPreferences("mypref", MODE_PRIVATE)
-        val phone = "lfnblfsn"  //sharedPreferences.getString("phone", null)
-        val name = "ffksbnklfsnbl" //sharedPreferences.getString("name", null)
+        val sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE)
+        val phone = sharedPreferences.getString("phone", null)
+        val name =  sharedPreferences.getString("name", null)
         val currentUser = User(name, phone)
 
         //get UI references
         val img = findViewById<CircleImageView>(R.id.recImg)
         val recName = findViewById<TextView>(R.id.TVname)
         val vidCall = findViewById<ImageButton>(R.id.vidCall)
-//        val currentDoc:String
 
         //Getting intent or saved instance data
         val extras = intent.extras
-        if (savedInstanceState == null) {
-            if (extras == null) {
-                finish()
-            } else {
-                calleeUser = User(extras.getString("name"), extras.getString("RecPhone"))
-//                currentDoc = extras.getString("room").toString()
-                recName.text = calleeUser!!.name
-                if (extras.getString("image") != null) {
-                    Glide.with(this).load(extras.getString("image"))
-                        .placeholder(org.jitsi.meet.sdk.R.drawable.images_avatar).into(img)
-                }
-            }
-        } else {
-            calleeUser = User(
-                savedInstanceState.getSerializable("name") as String?,
-                savedInstanceState.getSerializable("RecPhone") as String?
-            )
+        if (extras == null) {
+            finish()
         }
-
+        else{
+            Glide.with(this).load(extras.getString("image"))
+                .placeholder(org.jitsi.meet.sdk.R.drawable.images_iconusers).into(img)
+        }
         //database references
         val currentDoc = extras?.getString("room").toString()
         println(">>>>>>>>>>>>>>>>>>>>>> $currentDoc")
@@ -103,8 +93,7 @@ class ChatRoom : AppCompatActivity() {
         val collRef = docRef.collection("Messages")
 
         updateLastSeen(currentUser.profile)
-        getLastSeen(calleeUser!!.profile)
-
+            recName.text = currentDoc
         recycler_chat.adapter = MessageAdapter(this , messageList , phone )
         recycler_chat.layoutManager = LinearLayoutManager(this)
 
@@ -113,113 +102,23 @@ class ChatRoom : AppCompatActivity() {
 
         //Enable video calls
         vidCall.setOnClickListener { view: View? ->
-            if (currentDoc.isNotEmpty()) {
-                val options = JitsiMeetConferenceOptions.Builder()
-                    .setRoom("RandoChatOSCcall$currentDoc")
-                    .setAudioMuted(false)
-                    .setVideoMuted(false)
-                    .setAudioOnly(false)
-                    .setConfigOverride("requireDisplayName", false)
-                    .build();
-                JitsiMeetActivity.launch(this, options)
-            } else Snackbar.make(view!!, "Invalid Room ID", BaseTransientBottomBar.LENGTH_SHORT)
-                .show()
+           if (currentDoc.isNotEmpty()) {
+               startVideoCall(currentDoc)
+           }
+           else Snackbar.make(view!!, "Invalid Room ID", BaseTransientBottomBar.LENGTH_SHORT)
+               .show()
         }
 
         //Send button action
         sendBtn.setOnClickListener {
             //Remove extra spaces and break lines
             updateLastSeen(currentUser.profile)
-            if(currentMsg?.isEmpty() == true){
-                if (!recording){
-                    recording = true
-                    timer.visibility = View.VISIBLE
-                    timer.base = SystemClock.elapsedRealtime()
-                    timer.start()
-                    mediaRecorder = MediaRecorder()
-                    recordFile = "Recording${System.currentTimeMillis()}.3gp"
-                    mediaRecorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
-                    mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-                    mediaRecorder!!.setOutputFile("$recordPath/$recordFile")
-                    mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-                    try {
-                        mediaRecorder!!.prepare()
-
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                    mediaRecorder!!.start()
-                }
-                else {
-                    recording = false
-                    timer.visibility = View.INVISIBLE
-                    timer.stop()
-                    mediaRecorder!!.stop()
-                    mediaRecorder!!.release()
-                    mediaRecorder = null
-                    val randomKey = UUID.randomUUID().toString()
-                    val riverRef = storageRef.child("records/$randomKey")
-
-                    riverRef.putFile(Uri.fromFile(File("$recordPath/$recordFile")))
-                        .addOnSuccessListener {
-                            println("onSuccess")
-                            riverRef.downloadUrl.addOnSuccessListener { uri ->
-                                val tmp = Message(
-                                    uri.toString(),
-                                    Timestamp(System.currentTimeMillis()).toString()
-                                    , currentUser.profile , true)
-                                updateState(tmp)
-                                //serialize encrypted message in the hashmap
-                                lastMessage["text"] = encryptMsg(tmp.text)
-                                lastMessage["time"] = tmp.time
-                                lastMessage["user"] = encryptMsg(tmp.user)
-                                isRecord["isRecord"] = true
-
-                                //Send message hashmap to fireStore and handle success / failure
-                                val msgDoc: String = Timestamp(System.currentTimeMillis())
-                                    .toString().replace("\\s".toRegex(), "")
-                                collRef.document(msgDoc).set(isRecord)
-                                collRef.document(msgDoc).set(lastMessage, SetOptions.merge())
-                                    .addOnSuccessListener {
-                                        Timber.tag(ContentValues.TAG).d("DocumentSnapshot successfully written!")
-                                    }
-                                    .addOnFailureListener { e: Exception? ->
-                                        Timber.tag(ContentValues.TAG).w(e, "Error writing document")
-                                    }
-                                msgTxt.setText("")
-                            }
-                        }.addOnFailureListener{
-                            println("onFail" + it.message)
-                        }
-                }
-            }
             currentMsg = msgTxt.text.toString().trim { it <= ' ' }
-            if (currentMsg != "") {
-                // Add a new message object to the end of messages arraylist
-                val tmp = Message(
-                    currentMsg,
-                    Timestamp(System.currentTimeMillis()).toString()
-                    , currentUser.profile , false
-                )
-                updateState(tmp)
-                //serialize encrypted message in the hashmap
-                lastMessage["text"] = encryptMsg(tmp.text)
-                lastMessage["time"] = tmp.time
-                lastMessage["user"] = encryptMsg(tmp.user)
-
-                //Send message hashmap to fireStore and handle success / failure
-                val msgDoc: String = Timestamp(System.currentTimeMillis())
-                    .toString().replace("\\s".toRegex(), "")
-                collRef.document(msgDoc)
-                    .set(lastMessage, SetOptions.merge())
-                    .addOnSuccessListener {
-                        Timber.tag(ContentValues.TAG).d("DocumentSnapshot successfully written!")
-                    }
-                    .addOnFailureListener { e: Exception? ->
-                        Timber.tag(ContentValues.TAG).w(e, "Error writing document")
-                    }
-                //empty the message holder to receive the next message
-                msgTxt.setText("")
+            if(currentMsg?.isEmpty() == true){
+               handleRecording(currentUser , collRef)
+            }
+            else if (currentMsg != "") {
+                handleMessage(currentUser , collRef)
             }
         }
     }
@@ -299,7 +198,6 @@ class ChatRoom : AppCompatActivity() {
         }
     }
 
-
     private fun checkPermission(permission: String, requestCode: Int) {
         if (ContextCompat.checkSelfPermission(this@ChatRoom, permission )
             == PackageManager.PERMISSION_DENIED) {
@@ -313,11 +211,8 @@ class ChatRoom : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == 101) {
@@ -331,4 +226,106 @@ class ChatRoom : AppCompatActivity() {
         }
 
     }
+    private fun handleRecording(currentUser:User , collRef: CollectionReference){
+        if (!recording){
+            recording = true
+            timer.visibility = View.VISIBLE
+            timer.base = SystemClock.elapsedRealtime()
+            timer.start()
+            mediaRecorder = MediaRecorder()
+            recordFile = "Recording${System.currentTimeMillis()}.3gp"
+            mediaRecorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
+            mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+            mediaRecorder!!.setOutputFile("$recordPath/$recordFile")
+            mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+            try {
+                mediaRecorder!!.prepare()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            mediaRecorder!!.start()
+        }
+        else {
+            recording = false
+            timer.visibility = View.INVISIBLE
+            timer.stop()
+            mediaRecorder!!.stop()
+            mediaRecorder!!.release()
+            mediaRecorder = null
+            val randomKey = UUID.randomUUID().toString()
+            val recordRef = storageRef.child("records/$randomKey")
+
+            recordRef.putFile(Uri.fromFile(File("$recordPath/$recordFile")))
+                .addOnSuccessListener {
+                    println("onSuccess")
+                    recordRef.downloadUrl.addOnSuccessListener { uri ->
+                        val tmp = Message(
+                            uri.toString(),
+                            Timestamp(System.currentTimeMillis()).toString()
+                            , currentUser.profile , true)
+                        updateState(tmp)
+                        //serialize encrypted message in the hashmap
+                        lastMessage["text"] = encryptMsg(tmp.text)
+                        lastMessage["time"] = tmp.time
+                        lastMessage["user"] = encryptMsg(tmp.user)
+                        isRecord["isRecord"] = true
+
+                        //Send message hashmap to fireStore and handle success / failure
+                        val msgDoc: String = Timestamp(System.currentTimeMillis())
+                            .toString().replace("\\s".toRegex(), "")
+                        collRef.document(msgDoc).set(isRecord)
+                        collRef.document(msgDoc).set(lastMessage, SetOptions.merge())
+                            .addOnSuccessListener {
+                                Timber.tag(ContentValues.TAG).d("DocumentSnapshot successfully written!")
+                            }
+                            .addOnFailureListener { e: Exception? ->
+                                Timber.tag(ContentValues.TAG).w(e, "Error writing document")
+                            }
+                        msgTxt.setText("")
+                    }
+                }.addOnFailureListener{
+                    println("onFail" + it.message)
+                }
+        }
+    }
+
+    private fun handleMessage(currentUser:User , collRef: CollectionReference){
+        // Add a new message object to the end of messages arraylist
+        val tmp = Message(
+            currentMsg,
+            Timestamp(System.currentTimeMillis()).toString()
+            , currentUser.profile , false
+        )
+        updateState(tmp)
+        //serialize encrypted message in the hashmap
+        lastMessage["text"] = encryptMsg(tmp.text)
+        lastMessage["time"] = tmp.time
+        lastMessage["user"] = encryptMsg(tmp.user)
+
+        //Send message hashmap to fireStore and handle success / failure
+        val msgDoc: String = Timestamp(System.currentTimeMillis())
+            .toString().replace("\\s".toRegex(), "")
+        collRef.document(msgDoc)
+            .set(lastMessage, SetOptions.merge())
+            .addOnSuccessListener {
+                Timber.tag(ContentValues.TAG).d("DocumentSnapshot successfully written!")
+            }
+            .addOnFailureListener { e: Exception? ->
+                Timber.tag(ContentValues.TAG).w(e, "Error writing document")
+            }
+        //empty the message holder to receive the next message
+        msgTxt.setText("")
+    }
+
+    private fun startVideoCall(currentDoc:String ){
+            val options = JitsiMeetConferenceOptions.Builder()
+                .setRoom("RandoChatOSCcall$currentDoc")
+                .setAudioMuted(false)
+                .setVideoMuted(false)
+                .setAudioOnly(false)
+                .setConfigOverride("requireDisplayName", false)
+                .build()
+            JitsiMeetActivity.launch(this, options)
+        }
 }

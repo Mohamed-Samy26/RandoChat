@@ -28,6 +28,9 @@ public class User {
         this.profile = profile;
     }
 
+    public User() {
+    }
+
     public String getName() {
         return name;
     }

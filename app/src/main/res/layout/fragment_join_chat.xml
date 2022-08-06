@@ -20,13 +20,13 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/call_size"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:minWidth="@dimen/_90sdp"
             android:layout_height="65dp"
             android:maxEms="2"
             android:layout_marginStart="38dp"
             android:layout_gravity="center"
-            android:text="2"
+            android:maxLength="2"
             android:layout_marginTop="140dp"
             android:layout_marginEnd="38dp"
             android:background="@drawable/rounded_edittext"
@@ -43,11 +43,11 @@
     </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/call_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_24sdp"
-        android:text="Enter Chat Room"
+        android:text="Join Chat Room"
         android:drawableLeft="@android:drawable/sym_action_chat"
         android:drawableTint="@color/white"
         android:textSize="16sp"

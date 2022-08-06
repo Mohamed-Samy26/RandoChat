@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
 
 
+    ArrayList<User> current = new ArrayList<>();
+    boolean received = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +41,16 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout about = findViewById(R.id.about);
         AnimateView.startAnimation(R.id.bg_home , this , 2000);
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        String phone = getIntent().getStringExtra("reg");
+        SharedPreferences sharedPref = this.getSharedPreferences("prefs",Context.MODE_PRIVATE);
+        String phone = sharedPref.getString("phone" , ""); //getIntent().getStringExtra("reg");
         CircleImageView img = findViewById(R.id.user_img);
-        ArrayList<User> current = new ArrayList<>();
+        TextView user_name= findViewById(R.id.user_name);
         CollectionReference usersCol = FirebaseFirestore.getInstance().collection("users");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (phone == null)
-            phone = sharedPref.getString("phone" ,null);
-        else
-            sharedPref.edit().putString("phone", phone).apply();
+//        if (phone == null)
+//            phone = sharedPref.getString("phone" ,null);
+//        else
+//            sharedPref.edit().putString("phone", phone).apply();
         if (phone == null){
             transaction.replace(R.id.fragment_container_view, new Login());
         }
@@ -56,10 +59,15 @@ public class MainActivity extends AppCompatActivity {
             usersCol.document(phone).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
                     User user = task.getResult().toObject(User.class);
-                    System.out.println(user.getName() +" "+ user.getImage());
-                    System.out.println(task.getResult().get("name"));
-                    current.add(user);
-                    Glide.with(this).load(user.getImage()).into(img);
+                    if( user != null) {
+                        System.out.println(user.getName() + " " + user.getImage());
+                        System.out.println(task.getResult().get("name"));
+                        current.add(user);
+                        Glide.with(this).load(user.getImage()).into(img);
+                        user_name.setText(user.getName());
+                        received = true;
+                    }
+                    else Toast.makeText(MainActivity.this, "Error getting user", Toast.LENGTH_SHORT).show();
                 }
                 else Toast.makeText(MainActivity.this, "Error getting user", Toast.LENGTH_SHORT).show();
             });
@@ -72,5 +80,10 @@ public class MainActivity extends AppCompatActivity {
             overridePendingTransition(org.jitsi.meet.sdk.R.anim.rns_slide_in_from_right, org.jitsi.meet.sdk.R.anim.rns_slide_out_to_left);
         });
     }
-
+    public boolean isDataReceived(){
+        return received;
+    }
+    public User getData(){
+        return current.get(0);
+    }
 }

@@ -90,16 +90,13 @@ public class Verify extends AppCompatActivity {
             if(code!=null)
             {
                 progressbar.setVisibility(View.VISIBLE);
-                 verifyCode(code); //make sure that the code is correct
-
+                verifyCode(code); //make sure that the code is correct
             }
         }
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
             Toast.makeText(Verify.this, "Verification Failed", Toast.LENGTH_SHORT).show();
-            //
-
         }
 
         @Override
@@ -126,7 +123,7 @@ public class Verify extends AppCompatActivity {
             if(task.isSuccessful())
             {
                 Toast.makeText(Verify.this,"done!",Toast.LENGTH_SHORT).show();
-                SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = this.getSharedPreferences("prefs",Context.MODE_PRIVATE);
                 sharedPref.edit().putString("phone" ,phoneNo).apply();
                 checkRegistered(phoneNo);
             }
@@ -152,13 +149,13 @@ public class Verify extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if(document.exists()){
-                            Log.d(TAG , "Found");
+                            Timber.tag(TAG).d("Found");
                             Intent i = new Intent(this , MainActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(i);
                         }
                         else {
-                            Log.d(TAG , "Not Found");
+                            Timber.tag(TAG).d("Not Found");
                             Intent i = new Intent(this , Register.class);
                             i.putExtra("phone" , phoneNo);
                             startActivity(i);
