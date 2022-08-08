@@ -30,6 +30,8 @@
                 android:id="@+id/recImg"
                 android:layout_width="52dp"
                 android:layout_height="50dp"
+                android:src="@drawable/images_iconusers"
+                android:tint="@color/black"
                 android:layout_gravity="center"
                 android:layout_margin="12dp"
                 android:layout_marginStart="12dp"
@@ -46,12 +48,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
                 android:foregroundGravity="center_vertical"
                 android:gravity="center_vertical"
-                android:text="TextView"
+                android:text="Room"
                 android:textColor="@color/md_theme_light_onPrimary"
                 android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/recImg"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,6 +84,7 @@
                 android:textColor="@color/md_theme_light_secondary"
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="5dp"
+                android:visibility="gone"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintStart_toEndOf="@+id/recImg"
                 app:layout_constraintTop_toBottomOf="@+id/TVname"
@@ -106,6 +109,12 @@
             android:layout_height="match_parent"
             app:layout_constrainedHeight="true"
             android:elevation="0dp" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible" />
     </FrameLayout>
 
     <TextView
@@ -113,16 +122,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/view"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/ETchatbox"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
         android:id="@+id/ETchatbox"
