@@ -42,11 +42,12 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout about = findViewById(R.id.about);
         AnimateView.startAnimation(R.id.bg_home , this , 2000);
         SharedPreferences sharedPref = this.getSharedPreferences("prefs",Context.MODE_PRIVATE);
-        String phone = sharedPref.getString("phone" , ""); //getIntent().getStringExtra("reg");
+        String phone = sharedPref.getString("phone" , null); //getIntent().getStringExtra("reg");
         CircleImageView img = findViewById(R.id.user_img);
         TextView user_name= findViewById(R.id.user_name);
         CollectionReference usersCol = FirebaseFirestore.getInstance().collection("users");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        System.out.println(">>>>>>>>>>>>>>>>>>>" + phone);
 //        if (phone == null)
 //            phone = sharedPref.getString("phone" ,null);
 //        else

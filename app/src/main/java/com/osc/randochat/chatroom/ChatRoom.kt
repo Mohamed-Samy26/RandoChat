@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -27,7 +28,6 @@ import com.osc.randochat.adapters.MessageAdapter
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import org.jitsi.meet.sdk.JitsiMeetActivity
-import org.jitsi.meet.sdk.JitsiMeetActivityDelegate.onBackPressed
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 import timber.log.Timber
 import java.io.File
@@ -47,7 +47,7 @@ class ChatRoom : AppCompatActivity() {
 
     //Records
     private var recordFile = ""
-    private val recordPath = this.getExternalFilesDir("/")!!.absolutePath
+    private var recordPath:String? = null
     private val isRecord: MutableMap<String, Boolean> = HashMap()
 
 
@@ -63,9 +63,9 @@ class ChatRoom : AppCompatActivity() {
         checkPermission(Manifest.permission.RECORD_AUDIO, 202)
         //to hide action bar
         supportActionBar?.hide()
-        window.statusBarColor = getColor(R.color.statusbar)
         setContentView(R.layout.activity_chat_room)
 
+        recordPath = this.getExternalFilesDir("/")!!.absolutePath
         //initializing data
         val sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE)
         val phone = sharedPreferences.getString("phone", null)
@@ -75,7 +75,7 @@ class ChatRoom : AppCompatActivity() {
         //get UI references
         val img = findViewById<CircleImageView>(R.id.recImg)
         val recName = findViewById<TextView>(R.id.TVname)
-        val vidCall = findViewById<ImageButton>(R.id.vidCall)
+        val vidCall = findViewById<Button>(R.id.vidCall)
 
         //Getting intent or saved instance data
         val extras = intent.extras

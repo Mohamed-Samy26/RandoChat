@@ -31,10 +31,14 @@ class JoinChat : Fragment() {
         val btn = view.findViewById<Button>(R.id.call_btn)
         val tv = view.findViewById<TextView>(R.id.call_size)
         val name = ""
-        val rooms: Query = roomsColl
-            .whereLessThanOrEqualTo("count", Integer.parseInt(tv.text.toString())).limit(2)
 
         btn.setOnClickListener {
+            val maxCount = if(tv.text.toString() != "" && Integer.parseInt(tv.text.toString()) >= 2)
+                Integer.parseInt(tv.text.toString())
+                else 2
+            val rooms: Query = roomsColl
+                .whereLessThanOrEqualTo("count", maxCount).limit(2)
+
             rooms.get().addOnCompleteListener {
                 var s = ""
                 if (it.isSuccessful) {
@@ -71,12 +75,12 @@ class JoinChat : Fragment() {
                     Toast.makeText(activity, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
                 println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $s");
-//                    openChat(name, s);
+                    openChat(name, s);
             }
         }
     return view
   }
-    fun openChat(name: String?, s: String?) {
+    private fun openChat(name: String?, s: String?) {
         val intent = Intent(activity, ChatRoom::class.java)
         intent.putExtra("name", name)
 //        intent.putExtra("phone", phone)
